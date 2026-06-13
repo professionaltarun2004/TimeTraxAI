@@ -79,7 +79,7 @@ export function calculateProjectRisk(projectStats) {
   // 20% Meeting Overload (Number of meetings vs baseline)
   // 10% Context Switching (Unique attendees ratio)
 
-  const normalizedCost = Math.min(100, (projectStats.totalCost / 2000) * 100);
+  const normalizedCost = Math.min(100, (projectStats.cost / 2000) * 100);
   const avgLeakage = projectStats.meetingCount > 0 ? (projectStats.totalLeakageScore / projectStats.meetingCount) : 0;
   const overloadScore = Math.min(100, (projectStats.meetingCount / 5) * 100);
   const contextSwitching = Math.min(100, (projectStats.uniqueAttendees / 10) * 100);
