@@ -43,6 +43,8 @@ Organizations often know employee salaries but struggle to answer:
 
 ### Solution Architecture
 
+![System Architecture](./assets/TimeTrax%20system%20architecture.png)
+
 TimeTraxAI processes workforce activity through a multi-stage intelligence pipeline:
 
 Calendar Events / Meeting Data
