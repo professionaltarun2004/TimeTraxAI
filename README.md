@@ -1,5 +1,7 @@
 # TimeTraxAI – Workforce Intelligence OS
 
+🚀 **Live Demo (Vercel Deployment):** [https://my-webfolio-mes63hriq-tarun-sandilya-balivadas-projects.vercel.app/](https://my-webfolio-mes63hriq-tarun-sandilya-balivadas-projects.vercel.app/)
+
 **TimeTraxAI** is an autonomous, AI-powered Operating System designed to ingest calendar meeting activity and automatically attribute workforce costs, detect financial waste, and predict project risks in real time. 
 
 Built to solve the **"HR Cost Intelligence"** problem statement, this application moves beyond static dashboards to deliver an active, event-processing Intelligence Center that operates like Datadog or LangSmith for human capital.
