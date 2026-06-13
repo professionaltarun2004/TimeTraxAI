@@ -6,6 +6,7 @@
 **GitHub Username:** https://github.com/professionaltarun2004
 **LinkedIn Profile:** https://linkedin.com/in/tarun-sandilya-balivada-937497252
 **GitHub Project Repository:** https://github.com/professionaltarun2004/TimeTraxAI
+**Vercel Deployment:** https://my-webfolio-mes63hriq-tarun-sandilya-balivadas-projects.vercel.app/
 
 ---
 
