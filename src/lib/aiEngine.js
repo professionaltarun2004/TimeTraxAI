@@ -1,17 +1,32 @@
 export async function analyzeMeetingsWithOpenRouter(meetings, apiKey) {
-  const prompt = `You are a corporate AI classifying meetings and detecting cost leakages.
-Project Categories MUST be one of: Client Projects, Internal Projects, Recruitment, Operations, Learning & Development.
+  const prompt = `You are the AI Project Attribution Engine for the Workforce Cost Intelligence Engine.
+Input Data:
+${JSON.stringify(meetings.map(m => ({ 
+  id: m.id, 
+  title: m.title, 
+  description: m.description,
+  organizer: m.organizer,
+  attendees: m.attendeeList || m.attendees,
+  duration: m.duration
+})))}
 
-Data: ${JSON.stringify(meetings.map(m => ({ id: m.id, title: m.title, attendees: m.attendees, duration: m.duration })))}
+ALGORITHM 1: PROJECT ATTRIBUTION ENGINE
+For every meeting, compute a Project Attribution Score internally.
+Score Components:
+- Title Match = 40%
+- Description Match = 20%
+- Attendee History Match = 20%
+- Project Keyword Match = 20%
 
-Task 1: For each meeting, determine Project Name, Confidence Score (0-100), and Reasoning.
-Task 2: Detect Cost Leakages (Large meetings >10, Low attendance <3, Excessive duration >1.5h, etc.). For each leakage, provide: type, observation, impact, recommendation, potentialSavings, relatedMeetings (array of meeting IDs).
+Available Categories: Client Projects, Internal Projects, Recruitment, Operations, Learning & Development.
 
-Return STRICTLY a JSON object with two keys:
-{
-  "classifications": [ { "id", "projectName", "confidenceScore", "reasoning" } ],
-  "leakages": [ { "type", "observation", "impact", "recommendation", "potentialSavings", "relatedMeetings" } ]
-}
+Output format requirement: 
+Return strictly a JSON array of objects. Each object MUST have:
+- "id": meeting id
+- "project": The assigned category name. Never show "Unclassified" unless your internal confidence is < 30%.
+- "confidence": A number from 0 to 100.
+- "reasoning": A 1-sentence explanation of why.
+
 Do not use markdown wrappers.`;
 
   try {
@@ -22,7 +37,7 @@ Do not use markdown wrappers.`;
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "openai/gpt-4o-mini", // Using a fast/cheap model by default on OpenRouter
+        model: "openai/gpt-4o-mini",
         messages: [{ role: "user", content: prompt }]
       })
     });
@@ -40,25 +55,20 @@ Do not use markdown wrappers.`;
 }
 
 export async function generateExecutiveSummary(dashboardData, apiKey) {
-  const prompt = `You are an AI Executive Copilot analyzing Workforce Cost Data.
-Data: ${JSON.stringify(dashboardData)}
+  const prompt = `You are the AI Executive Copilot for the Workforce Cost Intelligence Engine.
+Dashboard Data: ${JSON.stringify(dashboardData)}
 
-Generate a highly concise executive brief answering:
-1. What happened?
-2. Why did it happen?
-3. Which projects are at risk?
-4. Where is workforce cost leaking?
-5. Recommended actions
-6. Potential savings
+ALGORITHM 5: EXECUTIVE COPILOT
+Generate an executive briefing based strictly on the provided data. Do not make up numbers.
 
-Return STRICTLY a JSON object with these keys (strings or arrays as appropriate):
+Return STRICTLY a JSON object with these keys:
 {
-  "whatHappened": "...",
-  "whyItHappened": "...",
-  "projectsAtRisk": ["..."],
-  "costLeakageAreas": ["..."],
-  "recommendedActions": ["..."],
-  "potentialSavings": "..."
+  "whatHappened": "Summary of meeting volume and costs",
+  "whyItHappened": "Root causes like leadership over-involvement or large meetings",
+  "projectsAtRisk": ["Project A", "Project B"],
+  "inefficientCosts": "Explanation of where workforce costs are leaking",
+  "recommendedActions": ["Action 1", "Action 2"],
+  "estimatedSavings": "Dollar amount"
 }
 Do not use markdown wrappers.`;
 
