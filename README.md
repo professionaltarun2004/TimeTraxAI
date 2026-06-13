@@ -1,36 +1,47 @@
 # Workforce Cost Copilot
 
-A modern React application built to analyze and manage meeting costs. Designed to calculate and display meeting expenses based on duration, participants, and hourly rates via CSV uploads.
+An AI-powered executive dashboard that analyzes workforce meeting costs, detects cost leakages, and attributes time spent to specific projects using Google Calendar metadata and OpenRouter AI.
+
+## Tech Stack
+- **Frontend:** React, Vite, Tailwind CSS
+- **Authentication:** Google OAuth (`@react-oauth/google`)
+- **Charts:** Recharts
+- **AI Engine:** OpenRouter API (`openai/gpt-4o-mini`)
+- **Icons:** Lucide React
+- **Deployment:** Vercel Ready
 
 ## Features
-- **CSV Upload:** Drag-and-drop or browse for CSV files containing meeting data.
-- **Client-Side Parsing:** Processes CSV files entirely in the browser (no backend required) using `papaparse`.
-- **Dynamic Dashboard:** Real-time calculation of total meeting costs, total hours, and number of meetings analyzed.
-- **Modern UI:** Clean, responsive, and beautiful interface built with vanilla CSS.
+1. **Google Calendar Sync:** Securely import calendar events via OAuth.
+2. **AI Project Attribution:** Automatically classify meetings into Client, Internal, Operations, etc.
+3. **Cost Leakage Detection:** AI detects bloated meetings, low attendance, and excessive recurring syncs.
+4. **Project Risk Engine:** Algorithmically calculates risk scores based on cost overruns and meeting volume.
+5. **Executive Copilot Brief:** Generates a high-level summary of "What happened?", "Why?", and "Potential Savings".
+6. **Demo Mode:** Fully functional without API keys using realistic mock datasets.
 
 ## Getting Started
 
-### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+### Local Development
 
-### Installation
-
-1. Install the dependencies:
+1. **Install Dependencies:**
    ```bash
    npm install
    ```
 
-2. Start the development server:
+2. **Start Development Server:**
    ```bash
    npm run dev
    ```
 
-3. Open the provided localhost link in your browser to view the application.
+3. **Configure API Keys (in app):**
+   - Enter your OpenRouter API Key in the top navigation bar.
+   - Adjust the Blended Employee Hourly Rate.
 
-## CSV Format
-Ensure your CSV contains the following columns for accurate parsing:
-- `Meeting Title` or `Title`
-- `Description`
-- `Duration` (in hours)
-- `Participants`
-- `Hourly Cost`
+### Vercel Deployment
+
+This project is configured with a `vercel.json` file for immediate deployment.
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Run `vercel` in the project root and follow the prompts.
+3. Your app is live!
+
+*Note: For full Google Calendar functionality in production, ensure you replace `YOUR_GOOGLE_CLIENT_ID` in `main.jsx` with a valid Client ID from the Google Cloud Console.*
