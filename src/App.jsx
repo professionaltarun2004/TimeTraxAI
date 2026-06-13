@@ -28,8 +28,6 @@ export default function App() {
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      // In a real app, fetch events from https://www.googleapis.com/calendar/v3/calendars/primary/events
-      // using tokenResponse.access_token
       alert("Google OAuth Success! In this demo, falling back to mock data as full GAPI is not wired.");
       loadDemoData();
     },
@@ -40,6 +38,15 @@ export default function App() {
     },
     scope: 'https://www.googleapis.com/auth/calendar.readonly',
   });
+
+  const handleConnectGCal = () => {
+    if (!import.meta.env.VITE_GOOGLE_CLIENT_ID) {
+      alert("Google Client ID is not configured in .env. Falling back to Demo Mode to prevent errors.");
+      loadDemoData();
+      return;
+    }
+    login();
+  };
 
   const loadDemoData = () => {
     setEvents(MOCK_EVENTS);
@@ -165,7 +172,7 @@ export default function App() {
             />
           </div>
 
-          <button onClick={() => login()} className="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-50 flex items-center gap-2 transition-colors">
+          <button onClick={handleConnectGCal} className="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-50 flex items-center gap-2 transition-colors">
             <Calendar className="w-4 h-4 text-blue-500" /> Connect GCal
           </button>
           
@@ -186,7 +193,7 @@ export default function App() {
             <h2 className="text-2xl font-bold text-slate-800 mb-2">Connect your Calendar</h2>
             <p className="text-slate-500 max-w-md mb-6">Import your organization's meeting metadata to detect workforce cost leakages and generate executive insights.</p>
             <div className="flex gap-4">
-              <button onClick={() => login()} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">
+              <button onClick={handleConnectGCal} className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">
                 Sign in with Google
               </button>
               <button onClick={loadDemoData} className="bg-white border border-slate-300 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:bg-slate-50 transition">
@@ -286,7 +293,7 @@ export default function App() {
                   {/* Cost by Project Chart */}
                   <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                     <h3 className="text-sm font-bold uppercase text-slate-500 mb-6">Cost by Project</h3>
-                    <div className="h-64">
+                    <div className="h-[250px] w-full min-h-[250px]">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={projectsList}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
