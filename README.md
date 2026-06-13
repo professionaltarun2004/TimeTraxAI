@@ -8,6 +8,8 @@ Built to solve the **"HR Cost Intelligence"** problem statement, this applicatio
 
 ## 🏗️ System Architecture & Agent Pipeline
 
+![System Architecture](./assets/TimeTrax%20system%20architecture.png)
+
 Instead of a standard CRUD application, TimeTraxAI runs an autonomous pipeline of six distinct agents. Every meeting event passes sequentially through this pipeline:
 
 1. **Calendar Agent (Ingestion):** Ingests raw meeting metadata (Title, Attendees, Organizer, Duration).
